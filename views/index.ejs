@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Joke Generator</title>
+
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Joke Generator</h1>
+        <p>Pick a category and get a random joke.</p>
+    </header>
+
+    <main>
+        <section class="joke-form">
+            <h2>Find a Joke</h2>
+
+            <form action="/joke" method="POST">
+
+                <label for="name">Your Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value="<%= name %>"
+                    placeholder="Enter your name"
+                    required
+                >
+
+                <label for="category">Joke Category</label>
+                <select id="category" name="category" required>
+                    <option value="Any">Any</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Misc">Misc</option>
+                    <option value="Pun">Pun</option>
+                    <option value="Spooky">Spooky</option>
+                    <option value="Christmas">Christmas</option>
+                </select>
+
+                <button type="submit">Get Joke</button>
+            </form>
+        </section>
+
+        <section class="result">
+
+            <% if (error) { %>
+
+                <p class="error-message">
+                    <%= error %>
+                </p>
+            <% } %>
+
+            <% if (joke) { %>
+                
+                <h2>
+                    <%= name %>, here is your joke:
+                </h2>
+                
+                <% if (joke.type === "single") { %>
+                    
+                    <p class="joke-text">
+                        <%= joke.joke %>
+                    </p>
+                <% } else { %>
+                    
+                    <p class="joke-text">
+                        <%= joke.setup %>
+                    </p>
+                    
+                    <p class="delivery">
+                        <%= joke.delivery %>
+                    </p>
+                    
+                <% } %>
+            <% } else if (!error) { %>
+                <p class="empty-message">
+                    Your joke will appear here.
+                </p>
+                
+            <% } %>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
